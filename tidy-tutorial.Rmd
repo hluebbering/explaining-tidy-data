@@ -1,0 +1,59 @@
+---
+title: "Explaining Tidy Data"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## <span style="color: purple;">Introduction</span>
+
+
+
+******************************************************
+
+
+## <span style="color: purple;">Getting Started</span>
+
+
+******************************************************
+
+## <span style="color: purple;">Exercise 1</span>
+
+******************************************************
+
+## <span style="color: purple;">Pivoting</span>
+
+
+#### pivot_longer()
+
+#### pivot_wider()
+
+******************************************************
+
+## <span style="color: purple;">Exercise 2</span>
+
+
+
+******************************************************
+
+## <span style="color: purple;">Seperating and United</span>
+
+
+******************************************************
+
+## <span style="color: purple;">Exercise 3</span>
+
+
+******************************************************
+
+## <span style="color: purple;">Case Study</span>
+
+
+
+
+******************************************************
