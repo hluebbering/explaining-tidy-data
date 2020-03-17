@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## <span style="color: purple;">Introduction</span>
 
+<span style="color: teal;">**What is Tidy Data?**</span>
 
 
 ******************************************************
@@ -19,23 +20,32 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## <span style="color: purple;">Getting Started</span>
 
+<span style="color: teal;">**Download**</span>
+
+
 
 ******************************************************
 
 ## <span style="color: purple;">Exercise 1</span>
 
+<span style="color: teal;">**Intro**</span>
+
+
 ******************************************************
 
 ## <span style="color: purple;">Pivoting</span>
 
+<span style="color: teal;">**pivot_longer()**</span>
 
-#### pivot_longer()
+<span style="color: teal;">**pivot_wider()**</span>
 
-#### pivot_wider()
+
 
 ******************************************************
 
 ## <span style="color: purple;">Exercise 2</span>
+
+<span style="color: teal;">**Pivoting**</span>
 
 
 
@@ -43,15 +53,26 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## <span style="color: purple;">Seperating and United</span>
 
+<span style="color: teal;">**Seperating**</span>
+
+<span style="color: teal;">**Uniting**</span>
+
+
 
 ******************************************************
 
 ## <span style="color: purple;">Exercise 3</span>
 
+<span style="color: teal;">**Seperating and Uniting**</span>
+
+
 
 ******************************************************
 
 ## <span style="color: purple;">Case Study</span>
+
+<span style="color: teal;">**Exercise**</span>
+
 
 
 
