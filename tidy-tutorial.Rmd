@@ -1,18 +1,78 @@
 ---
 title: "Explaining Tidy Data"
+author: "Hannah Luebbering"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(tidyverse)
+library(dplyr)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
 ## <span style="color: purple;">Introduction</span>
 
-<span style="color: teal;">**What is Tidy Data?**</span>
+<span style="color: teal;">**What is the tidyverse package?**</span>
+
+- The tidyverse package provides **tidy tools** and **tidy data**. 
+
+
+<span style="color: teal;">**What do tidyverse tools do? **</span>
+
+- The package’s tools save us time and effort in data wrangling and altering. 
+
+- Hence, the tools help **tidy up cluttered datasets**.
+
+
+<span style="color: teal;">**What is tidy data?**</span>
+
+- Tidy data is an organization in R that sorts data
+
+- Requires a particular format 
+
+***
+
+#### <span style="color: purple;">**Tidy Data**</span>
+
+**Recall:** When organizing data sets, we can represent the underlying data in numerous ways depending on where we choose to format each values into rows and columns.
+
+<span style="color: teal;">**Why make your data tidy?**</span>
+
+1. A uniform and organized data structure makes it easier to figure out which tools work best with it.
+
+2. Placing variables in columns allows built-in R functions to work with vectors of the data and transform tidy data. 
+
+<span style="color: teal;">**Tidy Dataset Example:**</span>
+
+```{r}
+table1
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+```
+
+
+<span style="color: teal;">**What makes a Dataset Tidy?**</span>
+
+1.	Each variable must have its own column.
+
+2.	Each observation must have its own row.
+
+3.	Each value must have its own cell.
+
+![](images/tidy-1.png){ width=90% } 
+
+
+More information can be found here http://www.jstatsoft.org/v59/i10/paper
 
 
 ******************************************************
@@ -20,15 +80,144 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## <span style="color: purple;">Getting Started</span>
 
-<span style="color: teal;">**Download**</span>
+***
+
+<span style="color: teal;">**Download Tidyverse**</span>
+
+```
+library(tidyverse)
+```
+
+***
+
+<span style="color: teal;">**How to make a tidy data set:**</span>
+
+**Recall**: Making a dataset **tidy** requires 3 rules: variables are in columns, observations are in rows, and values are in cells.
+
+1. Put each dataset in a **tibble**.
+
+2. Put each **variable** in a column.
+
+
+<span style="color: blue;">**Code Input:**</span>
+
+````markdown
+`r ''````{r}
+table1
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+
+```
+````
 
 
 
 ******************************************************
 
-## <span style="color: purple;">Exercise 1</span>
+## <span style="color: purple;">Tidyverse Exercise</span>
 
-<span style="color: teal;">**Intro**</span>
+<span style="color: teal;">**Examples using Tidyverse Packages**</span>
+
+***
+
+Here are a few examples using tidyverse packages, such as `dplyr` and `ggplot2` for the following dataset
+
+```{r}
+table1
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+```
+
+***
+
+<span style="color: blue;">**Compute rate per 10,000:**</span>
+
+
+
+
+`Input:`
+
+  ![](images/example1a.png){ width=50% } 
+  
+`Output:`
+
+```{r}
+table1 %>% 
+  mutate(rate = cases / population * 10000)
+#> # A tibble: 6 x 5
+#>   country      year  cases population  rate
+#>   <chr>       <int>  <int>      <int> <dbl>
+#> 1 Afghanistan  1999    745   19987071 0.373
+#> 2 Afghanistan  2000   2666   20595360 1.29 
+#> 3 Brazil       1999  37737  172006362 2.19 
+#> 4 Brazil       2000  80488  174504898 4.61 
+#> 5 China        1999 212258 1272915272 1.67 
+#> 6 China        2000 213766 1280428583 1.67
+```
+
+***
+
+<span style="color: blue;">**Compute cases per year:**</span>
+
+
+```{r add-table, exercise=TRUE}
+# Add up cases from year 1999
+745 + 37737 + 212258
+```
+
+```{r add-table2, exercise=TRUE}
+# Add up cases from year 2000
+2666 + 80488 + 213766
+```
+
+`Input:`
+  
+  ![](images/example1b.png){ width=28% } 
+  
+`Output:`
+
+```{r}
+table1 %>% 
+  count(year, wt = cases)
+#> # A tibble: 2 x 2
+#>    year      n
+#>   <int>  <int>
+#> 1  1999 250740
+#> 2  2000 296920
+```
+
+***
+<span style="color: blue;">**Visualize changes over time:**</span>
+
+
+`Input:`
+  
+  ![](images/example1c.png){ width=50% } 
+  
+`Output:`
+
+```{r plot,echo=FALSE}
+
+library(ggplot2)
+ggplot(table1, aes(year, cases)) + geom_line(aes(group = country), colour = "grey50") + geom_point(aes(colour = country))
+
+```
+
+
 
 
 ******************************************************
@@ -43,15 +232,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ******************************************************
 
-## <span style="color: purple;">Exercise 2</span>
-
-<span style="color: teal;">**Pivoting**</span>
-
-
-
-******************************************************
-
-## <span style="color: purple;">Seperating and United</span>
+## <span style="color: purple;">Seperating and Uniting</span>
 
 <span style="color: teal;">**Seperating**</span>
 
@@ -61,13 +242,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ******************************************************
 
-## <span style="color: purple;">Exercise 3</span>
-
-<span style="color: teal;">**Seperating and Uniting**</span>
-
-
-
-******************************************************
 
 ## <span style="color: purple;">Case Study</span>
 
@@ -76,5 +250,3 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 
-
-******************************************************
