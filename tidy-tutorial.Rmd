@@ -8,9 +8,19 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
-library(dplyr)
+library(readr)
+library(fivethirtyeight)
+
+library(stationery)
+
+library(ggplot2)
+library(plotly)
+library(gapminder)
+
+
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
 
 
 ## <span style="color: purple;">Introduction</span>
@@ -47,7 +57,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <span style="color: teal;">**Tidy Dataset Example:**</span>
 
-```{r}
+```{r table1}
 table1
 #> # A tibble: 6 x 4
 #>   country      year  cases population
@@ -70,6 +80,8 @@ table1
 3.	Each value must have its own cell.
 
 ![](images/tidy-1.png){ width=90% } 
+
+
 
 
 More information can be found here http://www.jstatsoft.org/v59/i10/paper
@@ -121,7 +133,92 @@ table1
 
 ******************************************************
 
-## <span style="color: purple;">Tidyverse Exercise</span>
+## <span style="color: purple;">Tidy Data Exercise</span>
+
+<span style="color: teal;">**Tidy Data Review**</span>
+
+#### **Answer the following three questions using Table 1:**
+
+***
+
+**TABLE 1.** Stock prices
+
+```{r data, echo=FALSE, warning=FALSE}
+
+stock_table <- read.csv("stock1.csv")
+
+
+stock_table
+```
+
+******
+
+```{r question2, echo=FALSE}
+question("**How many variables does Table 1 have?**",
+  answer("1"),
+  answer("2"),
+  answer("3", correct = TRUE),
+  answer("4")
+)
+
+```
+
+***
+
+```{r question4, echo=FALSE}
+question("**Select the unique piece(s) of information Table 1 provides:** (select all that apply)",
+  answer("date", correct = TRUE),
+  answer("stock investors"),
+  answer("location"),
+  answer("stock name", correct = TRUE),
+  answer("stock price", correct = TRUE)
+)
+
+```
+
+***
+
+```{r question, echo=FALSE}
+question("**Is Table 1 in `tidy` format?**",
+  answer("YES", correct = TRUE),
+  answer("NO"),
+  answer("Not enough info")
+)
+
+```
+
+***
+
+<span style="color: teal;">**Tidy Data Solutions**</span>
+
+
+
+There are **3 variables** corresponding to **3 unique pieces of information** 
+
+- `date` 
+
+- `stock name`
+
+- `stock price` 
+
+#### **Therefore,** 
+Table 1 is **NOT** in tidy format because it doesn't have 3 columns
+
+<span style="color: blue;">**Remember...**</span>
+
+<span style="color: magenta;">*TIDY DATA FORMAT*</span> requires that each variable is its own column
+
+
+```{r data2, echo=FALSE, warning=FALSE}
+
+tidy_stock_table <- read.csv("stock2.csv")
+
+
+tidy_stock_table
+```
+
+
+## <span style="color: purple;">Tidyverse Packages</span>
 
 <span style="color: teal;">**Examples using Tidyverse Packages**</span>
 
@@ -129,7 +226,7 @@ table1
 
 Here are a few examples using tidyverse packages, such as `dplyr` and `ggplot2` for the following dataset
 
-```{r}
+```{r table2}
 table1
 #> # A tibble: 6 x 4
 #>   country      year  cases population
@@ -155,7 +252,7 @@ table1
   
 `Output:`
 
-```{r}
+```{r table3}
 table1 %>% 
   mutate(rate = cases / population * 10000)
 #> # A tibble: 6 x 5
@@ -190,7 +287,7 @@ table1 %>%
   
 `Output:`
 
-```{r}
+```{r table4}
 table1 %>% 
   count(year, wt = cases)
 #> # A tibble: 2 x 2
@@ -226,7 +323,65 @@ ggplot(table1, aes(year, cases)) + geom_line(aes(group = country), colour = "gre
 
 <span style="color: teal;">**pivot_longer()**</span>
 
+
+```{r table 5}
+table4a
+#> # A tibble: 3 x 3
+#>   country     `1999` `2000`
+#> * <chr>        <int>  <int>
+#> 1 Afghanistan    745   2666
+#> 2 Brazil       37737  80488
+#> 3 China       212258 213766 
+
+```
+
+```{r table6}
+table4a %>% 
+  pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
+#> # A tibble: 6 x 3
+#>   country     year   cases
+#>   <chr>       <chr>  <int>
+#> 1 Afghanistan 1999     745
+#> 2 Afghanistan 2000    2666
+#> 3 Brazil      1999   37737
+#> 4 Brazil      2000   80488
+#> 5 China       1999  212258
+#> 6 China       2000  213766
+```
+
+***************************************
+
 <span style="color: teal;">**pivot_wider()**</span>
+
+```{r table7}
+table2
+#> # A tibble: 12 x 4
+#>   country      year type           count
+#>   <chr>       <int> <chr>          <int>
+#> 1 Afghanistan  1999 cases            745
+#> 2 Afghanistan  1999 population  19987071
+#> 3 Afghanistan  2000 cases           2666
+#> 4 Afghanistan  2000 population  20595360
+#> 5 Brazil       1999 cases          37737
+#> 6 Brazil       1999 population 172006362
+#> # … with 6 more rows
+```
+
+```{r table8}
+table2 %>%
+    pivot_wider(names_from = type, values_from = count)
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+```
+
+
 
 
 
@@ -242,11 +397,82 @@ ggplot(table1, aes(year, cases)) + geom_line(aes(group = country), colour = "gre
 
 ******************************************************
 
-
-## <span style="color: purple;">Case Study</span>
+## <span style="color: purple;">Missing Values</span>
 
 <span style="color: teal;">**Exercise**</span>
 
 
 
+******************************************************
 
+## <span style="color: purple;">Case Study</span>
+
+<span style="color: teal;">**Exercise**</span>
+
+```{r tabledrinks}
+drinks
+#> A tibble: 5 x 5
+#>   country    beer_servings spirit_servings wine_servings total_litres_of_pure_a…
+#>   <chr>              <int>           <int>         <int>                   <dbl>
+#> 1 Afghanist…             0               0             0                     0  
+#> 2 Albania               89             132            54                     4.9
+#> 3 Algeria               25               0            14                     0.7
+#> 4 Andorra              245             138           312                    12.4
+#> 5 Angola               217              57            45                     5.9
+```
+
+```{r}
+drinks_smaller <- drinks %>% 
+  filter(country %in% c("USA", "China", "Italy", "Saudi Arabia")) %>% 
+  select(-total_litres_of_pure_alcohol) %>% 
+  rename(beer = beer_servings, spirit = spirit_servings, wine = wine_servings)
+drinks_smaller
+```
+
+```{r tabledrinkstidy}
+drinks_smaller
+#># A tibble: 4 x 4
+#>   country       beer spirit  wine
+#>   <chr>        <int>  <int> <int>
+#> 1 China           79    192     8
+#> 2 Italy           85     42   237
+#> 3 Saudi Arabia     0      5     0
+#> 4 USA            249    158    84
+```
+
+```{r}
+drinks_smaller_tidy <- drinks_smaller %>% 
+  pivot_longer(names_to = "type", 
+               values_to = "servings", 
+               cols = -country)
+drinks_smaller_tidy
+```
+
+```{r tidy_help}
+drinks_smaller %>% 
+  pivot_longer(names_to = "type", 
+               values_to = "servings", 
+               cols = c(beer, spirit, wine))
+```
+
+```{r plot2}
+ggplot(drinks_smaller_tidy, aes(x = country, y = servings, fill = type)) +
+  geom_col(position = "dodge")
+```
+
+
+## Cool Interactive Plot
+
+```{r plot4, echo=FALSE}
+
+p <- gapminder %>%
+  filter(year==1977) %>%
+  ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
+  geom_point() +
+  scale_x_log10() +
+  theme_bw()
+ 
+ggplotly(p)
+```
+
+  
