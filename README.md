@@ -12,7 +12,7 @@ Hannah Luebbering
 
   - The tidyverse package provides **tidy tools** and **tidy data**.
 
-<span style="color: teal;">**What do tidyverse tools do? **</span>
+<span style="color: teal;">**What do tidyverse tools do?**</span>
 
   - The package’s tools save us time and effort in data wrangling and
     altering.
