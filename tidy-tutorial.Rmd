@@ -11,8 +11,6 @@ library(tidyverse)
 library(readr)
 library(fivethirtyeight)
 
-library(stationery)
-
 library(ggplot2)
 library(plotly)
 library(gapminder)
