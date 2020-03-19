@@ -1,0 +1,12 @@
+name: tidy-tutorial
+title: tidy-tutorial
+username:
+account: hannahluebbering
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1967935
+bundleId: 2899360
+url: https://hannahluebbering.shinyapps.io/tidy-tutorial/
+when: 1584649216.23685
+asMultiple: FALSE
+asStatic: FALSE
