@@ -111,8 +111,7 @@ library(tidyverse)
 
 <span style="color: blue;">**Code Input:**</span>
 
-````markdown
-`r ''````{r}
+```{r, echo = TRUE, eval = FALSE}
 table1
 #> # A tibble: 6 x 4
 #>   country      year  cases population
@@ -125,7 +124,6 @@ table1
 #> 6 China        2000 213766 1280428583
 
 ```
-````
 
 
 
