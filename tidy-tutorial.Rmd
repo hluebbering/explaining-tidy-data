@@ -15,7 +15,7 @@ library(ggplot2)
 library(plotly)
 library(gapminder)
 
-
+tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
